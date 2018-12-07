@@ -1,6 +1,6 @@
 FROM debian:stretch
 
-LABEL version="1.0" \
+LABEL version="1.1" \
       maintainer="igoticecream@gmail.com" \
       description="Docker image for Nintendo Switch development"
 
@@ -18,8 +18,6 @@ ENV PATH=$PATH:$DEVKITA64/bin
 ENV PATH=$PATH:$PORTLIBS/bin
 ENV PATH=$PATH:$SWITCHTOOLS/bin
 ENV PATH=$PATH:$PACMAN/bin
-
-WORKDIR $HOME/dev/
 
 RUN apt-get update -y && \
     apt-get install -y apt-utils && \
@@ -40,3 +38,6 @@ RUN dkp-pacman -Sy --noconfirm devkitARM && \
 
 RUN echo -e '#!/bin/bash\ndkp-pacman -Syyu --noconfirm && dkp-pacman -Scc --noconfirm' > /usr/local/bin/update && \
     chmod +x /usr/local/bin/update
+
+WORKDIR /nx
+VOLUME /nx
